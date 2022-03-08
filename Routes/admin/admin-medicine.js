@@ -11,7 +11,7 @@ const langFunction = require("../../common-modules/lang-messages");
  * @example Admin_Get_Pagin
  */
 
- router.post('/pagin', async (req, res) => {
+ router.post('/pagin', async (req, res) => { 
     try {
         let userData = req.body;
 

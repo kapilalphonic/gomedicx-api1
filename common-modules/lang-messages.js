@@ -30,7 +30,7 @@ let langauge  = {
             newrecommended:"New recommended is added Successfully",
             updaterecommended: "user diagnosis Updated Successfully",
             newmedicine:"New medicine is added Successfully",
-            updatemedicine: "user medicine Updated Successfully",
+            updatemedicine: "user medicine Updated Successfully",  
             newfaq:"New fsq is added Successfully",
             updatefaq: "user medicine Updated Successfully",
             // catNumbercreatealready: 'Vendor Category with Category Number is already Created',

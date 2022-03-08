@@ -187,7 +187,7 @@ const langFunction = require("../../common-modules/lang-messages");
             });
         } else {
             res.status(400).json({
-                message: langFunction('en', 'usernotfound'),
+                message: langFunction('en', 'usernotfound'), 
             });
         }
  } catch (error) {

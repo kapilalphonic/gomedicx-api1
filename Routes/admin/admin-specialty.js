@@ -181,7 +181,7 @@ const langFunction = require("../../common-modules/lang-messages");
             _id: req.params.id
         })
         if (data) {
-            res.status(200).json({
+            res.status(200).json({ 
                 message: langFunction('en', 'success'),
                 "name": data,
             });

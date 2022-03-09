@@ -52,7 +52,8 @@ router.use(function (req, res, next) {
   router.use('/recommended', require('./admin/admin-recommended'));
   router.use('/diagnosis', require('./admin/admin-diagnosis'));
   router.use('/medicines', require('./admin/admin-medicine')); 
-  router.use('/faq', require('./admin/admin-faq')); 
+  router.use('/faq', require('./admin/admin-faq'));
+  router.use('/contact', require('./admin/admin-contact')); 
 
 
   module.exports = router;

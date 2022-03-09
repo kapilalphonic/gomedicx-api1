@@ -148,7 +148,7 @@ const langFunction = require("../../common-modules/lang-messages");
                             });
                         } else {
                             res.status(200).json({
-                                message: langFunction('en', 'faqrecommended'),
+                                message: langFunction('en', 'updatefaq'),
                                 "name": data,
                             });
                         }
@@ -193,7 +193,7 @@ const langFunction = require("../../common-modules/lang-messages");
  } catch (error) {
         console.error(error);
         res.status(500).json({
-            message: langFunction('en', 'servererr'),
+            message: langFunction('en', 'servererr'), 
         });
     } 
 });

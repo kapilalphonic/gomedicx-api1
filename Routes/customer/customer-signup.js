@@ -11,6 +11,86 @@ const CMS = require("../../common-modules/index");
 // const Email = require('../../common-modules/email');
 const bcrypt = require('bcryptjs');
 
+/**
+ * @function  Customer_CheckUp_For_mobile
+ * @description API Will be /api/v1/c/CheckMobile
+ * @example CheckMobile_Before_signUp
+ */
+
+ router.post('/CheckMobile', async (req, res) => {
+    try {
+
+        let customerData = req.body;
+
+        let array1 = [ 'phone' ]
+        for (let index = 0; index < array1.length; index++) {
+            const element = array1[index];
+            if (!customerData[element]) {
+                return res.status(400).json({
+                    "message": element + CMS.Lang_Messages('en', 'feildmissing'),
+                });
+            }
+        }
+    
+        if (!CMS.Config.phonenumbervalidator(customerData.phone)) {
+            return res.status(400).json({
+                "message": CMS.Lang_Messages('en', 'phonenotmatch')
+            })
+        }   
+
+        let customer = await Customer.findOne({
+            $or: [{
+                    phone: customerData.phone
+                }
+            ]
+        })
+        if (customer){
+            return res.status(400).json({
+                "data" : customer,
+                "message": CMS.Lang_Messages('en', 'customeraccountcreatealready')
+            })
+        }
+        // const salt = await bcrypt.genSalt(10);
+        let otpCode = Math.floor(1000 + Math.random() * 9000);
+        var newCustomer = new Customer();
+        // newCustomer.name = customerData.name;
+        // newCustomer.email = customerData.email;
+        newCustomer.phone = customerData.phone;
+        // newCustomer.code = customerData.code;
+        // newCustomer.password = await bcrypt.hash(customerData.password, salt); // passwordHash.generate(customerData.password);
+        newCustomer.status = 0;
+        // newCustomer.image = "60ff882a7f89d408f43e5b6c";
+        newCustomer.isPhoneVerified = false;
+        newCustomer.isEmailVerified = false;
+        newCustomer.otp = otpCode;
+        // newCustomer.device_type = customerData.device_type;
+        // newCustomer.device_token = customerData.device_token;
+
+        let doc = await newCustomer.save()
+
+        let payLoad = {
+            "id": doc._id
+        };
+        let token = jwt.sign(payLoad, process.env.CUSTOMER_KEY, {
+            expiresIn: '24h' // expires in 1 Day
+        });   
+
+        // delete doc._doc.password
+        doc._doc.token = token
+        return res.status(200).json({
+            message: CMS.Lang_Messages('en', 'newcustomer'),
+            "data": doc,
+            // "Stripe_Data" : customerStripe
+        });
+    } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                message: "Something went wrong",
+            });
+    } 
+})
+
+
 
 /**
  * @function  Customer_Signup

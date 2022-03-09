@@ -11,6 +11,7 @@ var Schema = mongoose.Schema;
     // address: [{ type: Schema.Types.ObjectId, ref: 'Address'}],
     email: { type: String },
 	phone: { type: String },
+    otp: { type : Number },
     customer_id: {type : String},
     dob: {type: String},
     gender: {type: String},
